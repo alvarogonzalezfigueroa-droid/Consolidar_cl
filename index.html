@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consolidar.cl - Plataforma de Consolidación Logística</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: system-ui, Arial, sans-serif;
+            color: #1C1C1E;
+            background-color: #F8F9FA;
+            line-height: 1.6;
+        }
+        .navbar {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            padding: 20px;
+            text-align: center;
+        }
+        .navbar h1 {
+            font-weight: bold;
+            color: #1A2B45;
+            font-size: 2rem;
+        }
+        .hero {
+            padding: 60px 20px;
+            text-align: center;
+            background-color: white;
+            margin-bottom: 60px;
+        }
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #1A2B45;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cta-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .cta-button {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+            text-align: center;
+        }
+        .cta-button.primary {
+            background-color: #1A2B45;
+            color: white;
+        }
+        .cta-button.primary:hover {
+            background-color: #0F1A2E;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .cta-button.secondary {
+            background-color: #028C8C;
+            color: white;
+        }
+        .cta-button.secondary:hover {
+            background-color: #017070;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .cta-label {
+            display: block;
+            font-size: 0.9rem;
+            margin-top: 5px;
+            opacity: 0.8;
+        }
+        .benefits {
+            padding: 60px 20px;
+            background-color: white;
+            margin-bottom: 60px;
+        }
+        .benefits h3 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #1A2B45;
+        }
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .benefit-card {
+            background-color: #F8F9FA;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .benefit-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #1A2B45;
+        }
+        .benefit-card p {
+            font-size: 1rem;
+        }
+        .social-proof {
+            padding: 60px 20px;
+            background-color: white;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        .social-proof h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #1A2B45;
+        }
+        .counter {
+            font-size: 4rem;
+            color: #028C8C;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .social-proof p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+        .urgency {
+            font-size: 1.2rem;
+            color: #1A2B45;
+            font-weight: bold;
+        }
+        .footer {
+            padding: 40px 20px;
+            background-color: #1A2B45;
+            color: white;
+            text-align: center;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            animation: fadeIn 0.3s;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+        .modal-content {
+            background-color: white;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 10px;
+            position: relative;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover {
+            color: black;
+        }
+        .modal h4 {
+            margin-bottom: 20px;
+            color: #1A2B45;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+        .submit-button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 100%;
+        }
+        .submit-button.primary {
+            background-color: #1A2B45;
+            color: white;
+        }
+        .submit-button.primary:hover {
+            background-color: #0F1A2E;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .submit-button.secondary {
+            background-color: #028C8C;
+            color: white;
+        }
+        .submit-button.secondary:hover {
+            background-color: #017070;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .success-message {
+            display: none;
+            color: green;
+            margin-top: 20px;
+            text-align: center;
+        }
+        @media (max-width: 768px) {
+            .hero h2 {
+                font-size: 2rem;
+            }
+            .hero p {
+                font-size: 1rem;
+            }
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+            .counter {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>CONSOLIDAR.CL</h1>
+    </nav>
+
+    <section class="hero">
+        <h2>El espacio vacío en tu camión es el costo logístico más caro que nadie te está mostrando.</h2>
+        <p>Consolidar.cl une empresas que van al mismo corredor para compartir un camión y su costo. Menos gasto para quien despacha. Más ingreso para quien transporta.</p>
+        <div class="cta-buttons">
+            <button class="cta-button primary" id="demo-btn">
+                Quiero una demo
+                <span class="cta-label">Soy dueño de carga</span>
+            </button>
+            <button class="cta-button secondary" id="flota-btn">
+                Registra tu flota
+                <span class="cta-label">Soy transportista</span>
+            </button>
+        </div>
+    </section>
+
+    <section class="benefits">
+        <h3>¿Por qué Consolidar.cl?</h3>
+        <div class="benefits-grid">
+            <div class="benefit-card">
+                <h4>🚛 Paga solo por lo que ocupas</h4>
+                <p>Sin tarifas de camión completo. El costo se divide entre todos los que van al mismo corredor.</p>
+            </div>
+            <div class="benefit-card">
+                <h4>⚡ Despacha hoy, no cuando el camión esté lleno</h4>
+                <p>Sin esperar acumular carga propia. Salimos cuando tú lo necesitas.</p>
+            </div>
+            <div class="benefit-card">
+                <h4>📍 Rutas Valparaíso · Santiago · Sur hasta Punta Arenas</h4>
+                <p>Los corredores más caros del país, cubiertos donde el diesel duele más.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="social-proof">
+        <h3>Empresas ya consolidando en el corredor Santiago-Sur</h3>
+        <div class="counter" id="counter">112</div>
+        <p>Entre dueños de carga y transportistas.</p>
+        <p class="urgency">Próximo despacho consolidado: viernes 25 de abril</p>
+    </section>
+
+    <footer class="footer">
+        <p>CONSOLIDAR.CL © 2026 — Varios despachos, un camión, un costo compartido.</p>
+    </footer>
+
+    <!-- Modal Demo -->
+    <div id="demo-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="demo-close">&times;</span>
+            <h4>Agenda tu demo — es gratis</h4>
+            <form id="demo-form">
+                <div class="form-group">
+                    <label for="demo-nombre">Nombre</label>
+                    <input type="text" id="demo-nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="demo-empresa">Empresa</label>
+                    <input type="text" id="demo-empresa" required>
+                </div>
+                <div class="form-group">
+                    <label for="demo-email">Email</label>
+                    <input type="email" id="demo-email" required>
+                </div>
+                <button type="submit" class="submit-button primary">Confirmar</button>
+            </form>
+            <p class="success-message" id="demo-success">¡Listo! Te contactamos esta semana para mostrarte cómo reducir tu costo logístico.</p>
+        </div>
+    </div>
+
+    <!-- Modal Flota -->
+    <div id="flota-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" id="flota-close">&times;</span>
+            <h4>Únete como transportista</h4>
+            <form id="flota-form">
+                <div class="form-group">
+                    <label for="flota-nombre">Nombre</label>
+                    <input type="text" id="flota-nombre" required>
+                </div>
+                <div class="form-group">
+                    <label for="flota-empresa">Empresa</label>
+                    <input type="text" id="flota-empresa" required>
+                </div>
+                <div class="form-group">
+                    <label for="flota-email">Email</label>
+                    <input type="email" id="flota-email" required>
+                </div>
+                <button type="submit" class="submit-button secondary">Registrarme</button>
+            </form>
+            <p class="success-message" id="flota-success">¡Listo! Te avisamos cuando lancemos y te asignamos tus primeras cargas.</p>
+        </div>
+    </div>
+
+    <script>
+        // Tracking inicial
+        console.log({evento: "page_view", timestamp: new Date()});
+
+        // Contador inicial
+        let counterValue = parseInt(localStorage.getItem('counter')) || 112;
+        document.getElementById('counter').textContent = counterValue;
+
+        // Función para incrementar contador
+        function incrementCounter() {
+            counterValue++;
+            localStorage.setItem('counter', counterValue);
+            document.getElementById('counter').textContent = counterValue;
+        }
+
+        // Modal Demo
+        const demoBtn = document.getElementById('demo-btn');
+        const demoModal = document.getElementById('demo-modal');
+        const demoClose = document.getElementById('demo-close');
+        const demoForm = document.getElementById('demo-form');
+        const demoSuccess = document.getElementById('demo-success');
+
+        demoBtn.onclick = function() {
+            console.log({evento: "cta_click", segmento: "shipper", timestamp: new Date()});
+            demoModal.style.display = "block";
+        }
+
+        demoClose.onclick = function() {
+            demoModal.style.display = "none";
+        }
+
+        window.onclick = function(event) {
+            if (event.target == demoModal) {
+                demoModal.style.display = "none";
+            }
+            if (event.target == flotaModal) {
+                flotaModal.style.display = "none";
+            }
+        }
+
+        demoForm.onsubmit = function(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('demo-nombre').value.trim();
+            const empresa = document.getElementById('demo-empresa').value.trim();
+            const email = document.getElementById('demo-email').value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (nombre && empresa && emailRegex.test(email)) {
+                console.log({evento: "form_submit", segmento: "shipper", nombre, empresa, email, timestamp: new Date()});
+                demoForm.style.display = "none";
+                demoSuccess.style.display = "block";
+                incrementCounter();
+            } else {
+                alert("Por favor, completa todos los campos correctamente.");
+            }
+        }
+
+        // Modal Flota
+        const flotaBtn = document.getElementById('flota-btn');
+        const flotaModal = document.getElementById('flota-modal');
+        const flotaClose = document.getElementById('flota-close');
+        const flotaForm = document.getElementById('flota-form');
+        const flotaSuccess = document.getElementById('flota-success');
+
+        flotaBtn.onclick = function() {
+            console.log({evento: "cta_click", segmento: "transportista", timestamp: new Date()});
+            flotaModal.style.display = "block";
+        }
+
+        flotaClose.onclick = function() {
+            flotaModal.style.display = "none";
+        }
+
+        flotaForm.onsubmit = function(e) {
+            e.preventDefault();
+            const nombre = document.getElementById('flota-nombre').value.trim();
+            const empresa = document.getElementById('flota-empresa').value.trim();
+            const email = document.getElementById('flota-email').value.trim();
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (nombre && empresa && emailRegex.test(email)) {
+                console.log({evento: "form_submit", segmento: "transportista", nombre, empresa, email, timestamp: new Date()});
+                flotaForm.style.display = "none";
+                flotaSuccess.style.display = "block";
+                incrementCounter();
+            } else {
+                alert("Por favor, completa todos los campos correctamente.");
+            }
+        }
+    </script>
+</body>
+</html>
